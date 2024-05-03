@@ -2,6 +2,7 @@ package com.maxi.apionlineshop.models;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,13 +23,15 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //private Long userId;
+    @Column(name = "user_id")
+    private Long userId;
 
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
 
-    //private Long deviceId;
+    @Column(name = "device_id")
+    private Long deviceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id" , referencedColumnName = "id", insertable = false, updatable = false)
