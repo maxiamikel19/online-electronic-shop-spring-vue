@@ -33,6 +33,7 @@ public class JwtProviderImpl  implements JwtProvider{
    @Value("${app.jwt.expiration}")
     private Long JWT_EXPIRATION;
 
+    @Override
     public String generateToken(UserPrincipal userPrincipal){
 
         String authorities = userPrincipal.getAuthorities().stream()
