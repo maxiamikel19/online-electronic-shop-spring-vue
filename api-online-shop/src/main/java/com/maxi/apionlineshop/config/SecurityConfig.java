@@ -3,6 +3,7 @@ package com.maxi.apionlineshop.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.maxi.apionlineshop.config.jwt.JwtAuthorizationFilter;
+import com.maxi.apionlineshop.models.enums.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -46,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.sessionManagement( session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeRequests(req -> req
                             .antMatchers("/api/authentication/**").permitAll()
+                            .antMatchers(HttpMethod.GET, "/api/device/**").hasAnyRole(Role.ADMIN.name())
                             .anyRequest().authenticated());
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
        
